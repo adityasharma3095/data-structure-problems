@@ -63,3 +63,44 @@ ListNode *flattern(ListNode *root)
 
     return merge(root, flattern(root->next));
 }
+
+
+//This is the striver methord to flatterning a Linked List
+
+
+ListNode* mergeStriver( ListNode* a , ListNode* b ){
+
+        ListNode* temp = new ListNode(0);
+        ListNode* res = temp ; 
+    
+    while( a != nullptr or b != nullptr){
+        
+        if ( a -> data < b -> data){
+            temp -> bottom = a ; 
+            temp = temp -> bottom ; 
+            a = a -> bottom ; 
+        }
+        
+        else {
+            temp -> bottom = b ; 
+            temp = temp -> bottom ; 
+            b = b -> bottom ; 
+        }
+    }
+    
+    if ( a ) temp -> bottom = a ; 
+    else temp -> bottom =b ; 
+    
+    return res->bottom ; 
+    
+    
+}
+
+ListNode* flat( ListNode* root ){
+    if ( root == nullptr || root -> next == nullptr ) return root ; 
+    
+    
+    root -> next = flat( root -> next ) ; 
+    root = merge( root , root -> next ) ; 
+    return root ; 
+}
